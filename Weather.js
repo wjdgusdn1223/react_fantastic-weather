@@ -64,19 +64,26 @@ const weatherCases = {
 }
 
 function Weather({ temp, name }){
-    console.log(name);
     return(
         <LinearGradient 
-            colors={weatherCases[name].colors} 
+            colors={name in weatherCases ? weatherCases[name].colors : ["#FEF253", "#304352"]} 
             style={styles.container} 
         >
             <View style={styles.upper}>
-                <Ionicons color="white" size={144} name={weatherCases[name].icon} />
+                <Ionicons 
+                    color="white" 
+                    size={144} 
+                    name={name in weatherCases ? weatherCases[name].icon : "ios-help"} 
+                />
                 <Text style={styles.temp}>{temp}º</Text>
             </View>
             <View style={styles.lower}>
-                <Text style={styles.title}>{weatherCases[name].title}</Text>
-                <Text style={styles.subtitle}>{weatherCases[name].subtitle}</Text>
+                <Text style={styles.title}>
+                    {name in weatherCases ? weatherCases[name].title : name}
+                </Text>
+                <Text style={styles.subtitle}>
+                    {name in weatherCases ? weatherCases[name].subtitle : "I don't know what that mean.."}
+                </Text>
             </View>
         </LinearGradient>
     );
