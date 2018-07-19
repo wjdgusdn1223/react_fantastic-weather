@@ -32,10 +32,15 @@ export default class App extends React.Component {
       .then(potato => potato.json())
       .then(json => {
         this.setState({
-          temperature: json.main.temp, 
+          temperature: json.main.temp,
           name: json.weather[0].main,
           isLoaded: true
         })
+      })
+      .catch(error => {
+        this.setState({
+          error: error
+        });
       })
   }
 
@@ -46,7 +51,7 @@ export default class App extends React.Component {
         <StatusBar hidden={true} />
         {isLoaded ? <Weather temp={Math.floor(temperature - 273.15)} name={name} /> : (
           <View style={styles.loading}>
-            <Text style={styles.loadingText}>Getting the fantastic weather</Text>
+            <Text style={styles.loadingText}>Getting the fantastic weather!!</Text>
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
           </View>
         )}
